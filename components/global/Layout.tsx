@@ -1,35 +1,18 @@
-import { Blok, Link } from "@/types/fields";
-import NextLink from "next/link";
-
-interface MenuLinkBlok extends Blok {
-  text: string;
-  link: Link;
-}
-
-interface ConfigBlok extends Blok {
-  header_menu: MenuLinkBlok[];
-}
+import { Blok } from "@/types/fields";
+import Config from "./Config";
 
 interface LayoutProps {
-  blok: ConfigBlok;
+  story: Blok;
   children?: React.ReactNode;
+  className?: string;
 }
 
-const Layout = ({ blok, children }: LayoutProps) => {
-  return (
-    <>
-      <ul>
-        {blok?.header_menu.map((item) => {
-          return (
-            <li key={item._uid}>
-              <NextLink href={item.link.url}>{item.text}</NextLink>
-            </li>
-          );
-        })}
-      </ul>
-      <>{children}</>
-    </>
-  );
-};
+const Layout = ({ children, story, className }: LayoutProps) => (
+  <div className={className}>
+    <Config blok={story.content} />
+    {children}
+    {/* <Footer /> */}
+  </div>
+);
 
 export default Layout;

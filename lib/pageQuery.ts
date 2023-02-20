@@ -1,5 +1,4 @@
-import { getStoryblokApi } from "@storyblok/react";
-import { Blok } from "@/types/fields";
+import { getStoryblokApi, ISbStoriesParams } from "@storyblok/react";
 
 const pageQuery = async (
   slug: string,
@@ -7,28 +6,18 @@ const pageQuery = async (
 ) => {
   const storyblokApi = getStoryblokApi();
 
-  let page: Blok | null = null;
-  let config: Blok | null = null;
+  const params: ISbStoriesParams = {
+    version: version, // or published
+  };
 
-  // load content for the page for the requested locale if slug argument is passed
-  if (slug !== undefined) {
-    page = await storyblokApi.get(`cdn/stories/${slug}`, {
-      version: version, // or published
-    });
-  }
+  let { data } = await storyblokApi.get(`cdn/stories/${slug}`, params);
+  let { data: config } = await storyblokApi.get("cdn/stories/config", params);
 
-  // load content for header for the requested locale
-  config = await storyblokApi.get("cdn/stories/config", {
-    version: version,
-    resolve_links: "url",
-  });
-
-  // return the story from Storyblok and whether preview mode is active
   return {
     props: {
-      story: page ? page.data.story : false,
-      key: page ? page.data.story.id : false,
-      config: config ? config.data.story : false,
+      story: data ? data.story : false,
+      key: data ? data.story.id : false,
+      config: config ? config.story : false,
     },
     revalidate: 3600, // revalidate every hour
   };
