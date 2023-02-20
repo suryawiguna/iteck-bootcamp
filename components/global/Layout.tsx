@@ -21,7 +21,7 @@ const Layout = ({ blok, children }: LayoutProps) => {
       <ul>
         {blok?.header_menu.map((item) => {
           return (
-            <li>
+            <li key={item._uid}>
               <NextLink href={item.link.url}>{item.text}</NextLink>
             </li>
           );

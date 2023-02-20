@@ -6,7 +6,7 @@ const Grid = ({ blok }: Blok) => {
   return (
     <div className="grid" {...storyblokEditable(blok)}>
       {blok.columns.map((nestedBlok: Blok) => (
-        <Feature blok={nestedBlok} />
+        <Feature key={nestedBlok._uid} blok={nestedBlok} />
       ))}
     </div>
   );
