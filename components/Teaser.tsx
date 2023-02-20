@@ -8,7 +8,7 @@ interface TeaserBlok extends Blok {
 }
 
 const Teaser = ({ blok }: TeaserBlok) => {
-  return <h2 {...storyblokEditable(blok)}>{blok.headline}</h2>;
+  return <h2 {...storyblokEditable(blok)} className="text-3xl font-bold">{blok.headline}</h2>;
 };
 
 export default Teaser;
