@@ -1,32 +1,25 @@
-import { useStoryblokState, getStoryblokApi } from "@storyblok/react";
+import { useStoryblokState, StoryblokComponent } from "@storyblok/react";
 import { GetStaticProps } from "next";
+import pageQuery from "@/lib/pageQuery";
+import { Blok } from "@/types/fields";
+import Layout from "@/components/global/Layout";
 
-import DynamicComponent from "@/components/global/dynamicComponent";
-import * as Components from "@/components/home";
-
-interface StoryblokParam {
-  story: any;
-}
-
-export default function Home({ story: initialStory }: StoryblokParam) {
+export default function Home({ story: initialStory, config }: Blok) {
   const story = useStoryblokState(initialStory);
 
-  return <DynamicComponent story={story} components={Components} />;
+  return (
+    <Layout blok={config.content}>
+      <StoryblokComponent blok={story.content} />
+    </Layout>
+  );
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  let slug = "home";
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const query = await pageQuery("home", "draft");
 
-  const storyblokApi = getStoryblokApi();
-  let { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
-    version: "draft", // or published
-  });
-
-  return {
-    props: {
-      story: data ? data.story : false,
-      key: data ? data.story.id : false,
-    },
-    revalidate: 3600, // revalidate every hour
-  };
+    return query;
+  } catch (error) {
+    return { notFound: true };
+  }
 };
