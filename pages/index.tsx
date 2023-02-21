@@ -2,19 +2,24 @@ import { useStoryblokState, StoryblokComponent } from "@storyblok/react";
 import { GetStaticProps } from "next";
 import pageQuery from "@/lib/pageQuery";
 import { Blok } from "@/types/fields";
+import Layout from "@/components/global/Layout";
 
-export default function Home({ story: initialStory }: Blok) {
+export default function Home({ story: initialStory, header, footer }: Blok) {
   const story = useStoryblokState(initialStory);
 
-  return <StoryblokComponent blok={story.content} />;
+  return (
+    <Layout header={header} footer={footer} story={story}>
+      <StoryblokComponent blok={story.content} />;
+    </Layout>
+  );
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  try {
-    const query = await pageQuery("home", "draft");
+  const query = await pageQuery("home", "draft");
 
-    return query;
-  } catch (error) {
+  if (!query) {
     return { notFound: true };
   }
+
+  return query;
 };
