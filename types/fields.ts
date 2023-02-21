@@ -19,7 +19,7 @@ export interface Color {
   plugin: "native-color-picker";
 }
 
-export interface Link {
+export interface LinkField {
   id: string;
   url: string;
   anchor: string;
@@ -27,4 +27,9 @@ export interface Link {
   fieldtype: "multilink";
   cached_url: string;
   story: Blok;
+}
+
+export interface Richtext {
+  type: string;
+  content: Array<Object>;
 }
