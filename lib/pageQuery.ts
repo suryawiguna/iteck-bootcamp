@@ -17,8 +17,6 @@ const pageQuery = async (
   );
   // let { data: footer } = await storyblokApi.get("cdn/stories/layout/footer", params);
 
-  console.log(data.story.content.seo);
-
   return {
     props: {
       story: data ? data.story : false,
