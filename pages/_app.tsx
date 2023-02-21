@@ -1,4 +1,4 @@
-import '@/styles/globals.css'
+import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 
 import { storyblokInit, apiPlugin } from "@storyblok/react";
@@ -22,7 +22,7 @@ storyblokInit({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Layout story={pageProps.config} className={inter.className}>
+    <Layout header={pageProps.header} story={pageProps.story} className={inter.className}>
       <Component {...pageProps} />
     </Layout>
   );

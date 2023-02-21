@@ -11,13 +11,19 @@ const pageQuery = async (
   };
 
   let { data } = await storyblokApi.get(`cdn/stories/${slug}`, params);
-  let { data: config } = await storyblokApi.get("cdn/stories/config", params);
+  let { data: header } = await storyblokApi.get(
+    "cdn/stories/layout/header",
+    params
+  );
+  // let { data: footer } = await storyblokApi.get("cdn/stories/layout/footer", params);
+
+  console.log(data.story.content.seo);
 
   return {
     props: {
       story: data ? data.story : false,
       key: data ? data.story.id : false,
-      config: config ? config.story : false,
+      header: header ? header.story : false,
     },
     revalidate: 3600, // revalidate every hour
   };
