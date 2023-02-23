@@ -12,8 +12,8 @@ const pageQuery = async (
     };
 
     let { data } = await storyblokApi.get(`cdn/stories/${slug}`, params);
-    let { data: header } = await storyblokApi.get(
-      "cdn/stories/layout/header",
+    let { data: navigation } = await storyblokApi.get(
+      "cdn/stories/layout/navigation",
       params
     );
     let { data: footer } = await storyblokApi.get(
@@ -25,7 +25,7 @@ const pageQuery = async (
       props: {
         story: data ? data.story : false,
         key: data ? data.story.id : false,
-        header: header ? header.story : false,
+        navigation: navigation ? navigation.story : false,
         footer: footer ? footer.story : false,
       },
       revalidate: 3600, // revalidate every hour

@@ -1,16 +1,22 @@
 import { Blok } from "@/types/fields";
-import Header from "./Header";
 import Head from "next/head";
 import Footer from "./Footer";
+import Navigation from "./Navigation";
 
 interface LayoutProps {
   story: Blok;
-  header: Blok;
+  navigation: Blok;
   footer: Blok;
   children?: React.ReactNode;
   className?: string;
 }
-const Layout = ({ children, header, footer, story, className }: LayoutProps) => (
+const Layout = ({
+  children,
+  navigation,
+  footer,
+  story,
+  className,
+}: LayoutProps) => (
   <div className={className}>
     <Head>
       <title>{story.content.seo.title}</title>
@@ -21,9 +27,9 @@ const Layout = ({ children, header, footer, story, className }: LayoutProps) => 
         key="description"
       />
     </Head>
-    <Header blok={header.content} />
-    <div className="max-w-6xl mx-auto px-4 sm:px-6">{children}</div>
-    <Footer blok={footer.content}/>
+    <Navigation blok={navigation.content} />
+    <div className="mx-auto text-black-2">{children}</div>
+    <Footer blok={footer.content} />
   </div>
 );
 

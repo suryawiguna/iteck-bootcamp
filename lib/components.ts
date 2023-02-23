@@ -4,16 +4,16 @@ import Feature from "@/components/Feature";
 import Page from "@/components/Page";
 import Layout from "@/components/global/Layout";
 import Navigation from "@/components/global/Navigation";
-import Header from "@/components/global/Header";
+import { Hero } from "@/components/Hero";
 
 const components = {
   page: Page,
   grid: Grid,
   teaser: Teaser,
   feature: Feature,
-  header: Header,
   layout: Layout,
   navigation: Navigation,
+  hero: Hero,
 };
 
 export default components;

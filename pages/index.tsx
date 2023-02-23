@@ -4,11 +4,15 @@ import pageQuery from "@/lib/pageQuery";
 import { Blok } from "@/types/fields";
 import Layout from "@/components/global/Layout";
 
-export default function Home({ story: initialStory, header, footer }: Blok) {
+export default function Home({
+  story: initialStory,
+  navigation,
+  footer,
+}: Blok) {
   const story = useStoryblokState(initialStory);
 
   return (
-    <Layout header={header} footer={footer} story={story}>
+    <Layout navigation={navigation} footer={footer} story={story}>
       <StoryblokComponent blok={story.content} />;
     </Layout>
   );
