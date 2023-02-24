@@ -2,17 +2,28 @@ import { Blok } from "@/types/fields";
 import { storyblokEditable } from "@storyblok/react";
 import Image from "next/image";
 import Link from "next/link";
+import styled from "styled-components";
 import { Icon, IconBlok } from "./global/Icon";
 import RichText from "./global/Richtext";
+
+const Lines = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -2;
+`;
 
 export const Hero = ({ blok }: Blok) => {
   return (
     <header
-      className="relative h-screen max-h-[720px] py-12 md:py-0"
+      className="h-screen lg:max-h-[720px] py-12 md:py-0 mt-28"
       {...storyblokEditable(blok)}
     >
-      <div className="grid md:grid-cols-2 h-full max-w-6xl mx-auto px-4">
-        <div className="my-auto">
+      <div className="grid lg:grid-cols-2 h-full max-w-6xl mx-auto">
+        <div className="my-auto px-4">
           <p className="text-gray-400 text-sm mb-3">{blok.caption}</p>
           <span className="text-4xl md:text-6xl text-black-3 md:leading-snug">
             <RichText document={blok.title} />
@@ -30,18 +41,18 @@ export const Hero = ({ blok }: Blok) => {
             </div>
           </div>
         </div>
-        <div className="relative right-0">
+        <div className="relative right-0 overflow-hidden md:overflow-visible">
           <span className="absolute w-[600px] h-[600px] rounded-full z-[-1] bg-orange left-[-100px] top-[40px]" />
           <Image
             src={blok.image.filename}
             width={700}
             height={700}
             alt=""
-            className="md:max-w-[unset] ml-[-100px]"
+            className="max-w-[unset] md:ml-[-100px]"
           />
         </div>
       </div>
-      <div className="flex flex-col gap-2 absolute z-20 left-16 bottom-20">
+      <div className="flex flex-col gap-2 absolute z-20 left-8 md:left-16 bottom-2">
         {blok.heroIcons.map((icon: IconBlok) => {
           return (
             <Link
@@ -56,7 +67,7 @@ export const Hero = ({ blok }: Blok) => {
           );
         })}
       </div>
-      <div className="flex gap-2 absolute z-20 right-[-120px] bottom-52 text-sm font-semibold rotate-90">
+      <div className="flex gap-2 absolute z-20 right-[-120px] bottom-32 text-sm font-semibold rotate-90">
         {blok.heroContacts.map((contact: Blok) => {
           return (
             <Link
@@ -69,6 +80,14 @@ export const Hero = ({ blok }: Blok) => {
           );
         })}
       </div>
+      <Lines className="grid grid-cols-6">
+        <span className="bg-darkGray w-[1px] opacity-10 right-1/4 block h-full"></span>
+        <span className="bg-darkGray w-[1px] opacity-10 right-2/4 block h-full"></span>
+        <span className="bg-darkGray w-[1px] opacity-10 right-2/4 block h-full"></span>
+        <span className="bg-darkGray w-[1px] opacity-10 right-2/4 block h-full"></span>
+        <span className="bg-darkGray w-[1px] opacity-10 right-2/4 block h-full"></span>
+        <span className="bg-darkGray w-[1px] opacity-10 right-2/4 block h-full"></span>
+      </Lines>
     </header>
   );
 };

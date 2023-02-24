@@ -4,14 +4,33 @@ import NextLink from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-import styled from "styled-components";
+import { useEffect, useState } from "react";
 
 const Navigation = ({ blok }: Blok) => {
   const [open, isOpen] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <nav className="sticky top-0 bg-white shadow-xl z-10">
+    <nav
+      className={`w-full z-30 ${
+        scrollY > 180
+          ? "fixed shadow-xl bg-white transition-transform duration-500 top-[-100px] translate-y-[100px]"
+          : "absolute bg-transparent top-0 "
+      }`}
+    >
       <div className="mx-auto max-w-6xl px-4 py-6 md:py-9">
         <nav
           className="flex flex-col md:flex-row md:justify-between"
@@ -24,7 +43,6 @@ const Navigation = ({ blok }: Blok) => {
               height={47}
               alt={blok.logo.alt}
             />
-            {/* TOGGLE BUTTON */}
             <button
               className="group md:hidden p-4"
               onClick={() => {
@@ -35,7 +53,7 @@ const Navigation = ({ blok }: Blok) => {
             </button>
           </div>
           <div
-            className={`bg-white md:flex md:flex-row${
+            className={`md:flex md:flex-row${
               open ? " flex flex-col" : " hidden"
             }`}
           >
