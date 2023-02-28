@@ -2,7 +2,10 @@ import { Blok } from "@/types/fields";
 import { storyblokEditable } from "@storyblok/react";
 
 const Feature = ({ blok }: Blok) => (
-  <div className="column feature" {...storyblokEditable(blok)}>
+  <div
+    className="column feature container mx-auto py-5"
+    {...storyblokEditable(blok)}
+  >
     {blok.name}
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quibusdam
     perferendis, tenetur natus laudantium distinctio, soluta debitis at fugit

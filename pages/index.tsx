@@ -13,7 +13,7 @@ export default function Home({
 
   return (
     <Layout navigation={navigation} footer={footer} story={story}>
-      <StoryblokComponent blok={story.content} />;
+      <StoryblokComponent blok={story.content} />
     </Layout>
   );
 }
